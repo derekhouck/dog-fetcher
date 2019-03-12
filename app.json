@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Dog Fetcher",
+    "description": "An app for fetching random pictures of cute dogs",
     "slug": "dog-fetcher",
     "privacy": "public",
     "sdkVersion": "32.0.0",
@@ -9,6 +10,7 @@
       "android"
     ],
     "version": "1.0.0",
+    "githubUrl": "https://github.com/derekhouck/dog-fetcher",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {

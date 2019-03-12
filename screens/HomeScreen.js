@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
+import { Ionicons } from '@expo/vector-icons';
 
 import { MonoText } from '../components/StyledText';
 
@@ -23,13 +24,12 @@ export default class HomeScreen extends React.Component {
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
+              source={require('../assets/images/sample-dog.jpg')}
               style={styles.welcomeImage}
             />
+          </View>
+          <View style={styles.favoriteButton}>
+            <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} size={64} color='gold' />
           </View>
 
           <View style={styles.getStartedContainer}>
@@ -46,14 +46,6 @@ export default class HomeScreen extends React.Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View>
       </View>
     );
   }
@@ -106,6 +98,11 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingTop: 30,
+  },
+  favoriteButton: {
+    position: 'absolute',
+    right: 20,
+    top: 40,
   },
   welcomeContainer: {
     alignItems: 'center',

@@ -2,8 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 33056,
-  "expoServerNgrokUrl": "https://xf-axp.anonymous.dog-fetcher.exp.direct",
-  "packagerNgrokUrl": "https://packager.xf-axp.anonymous.dog-fetcher.exp.direct",
-  "ngrokPid": 33082
+  "packagerPid": 1255,
+  "expoServerNgrokUrl": "https://xf-axp.derekhouck.dog-fetcher.exp.direct",
+  "packagerNgrokUrl": "https://packager.xf-axp.derekhouck.dog-fetcher.exp.direct",
+  "ngrokPid": 1271,
+  "webpackServerPort": null
 }
