@@ -64,19 +64,19 @@ export default class HomeScreen extends React.Component {
           source={{ uri: this.state.dog }}
           style={styles.dogImage}
         />
-        <View style={styles.favoriteButton}>
-        </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => this.state.isFav ? this.removeDog() : this.saveDog()}
-          >
-            <Icon
-              color='gold'
-              name={this.styleStar()}
-              size={64}
-              type='ionicon'
-            />
-          </TouchableOpacity>
+          <View style={styles.favoriteButton}>
+            <TouchableOpacity
+              onPress={() => this.state.isFav ? this.removeDog() : this.saveDog()}
+            >
+              <Icon
+                color='gold'
+                name={this.styleStar()}
+                size={64}
+                type='ionicon'
+              />
+            </TouchableOpacity>
+          </View>
           <Button
             onPress={() => this.fetchDog()}
             raised
@@ -117,9 +117,9 @@ const styles = StyleSheet.create({
     width: undefined,
   },
   favoriteButton: {
-    // position: 'absolute',
-    // right: 20,
-    // top: 40,
+    position: 'absolute',
+    right: 20,
+    bottom: 10,
   },
   loading: {
     alignItems: 'center',
