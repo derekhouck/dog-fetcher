@@ -1,18 +1,18 @@
 import React from 'react';
 import {
-  ActivityIndicator,
-  Alert,
-  Button,
   Image,
   Platform,
   StyleSheet,
   View,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import {
+  Button,
+  Icon,
+} from 'react-native-elements';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    title: 'Dog Fetcher',
   };
 
   state = {
@@ -32,14 +32,6 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
-    if (this.state.isLoading) {
-      return (
-        <View style={styles.loading}>
-          <ActivityIndicator />
-        </View>
-      );
-    }
-
     return (
       <View style={styles.container}>
         <Image
@@ -47,12 +39,20 @@ export default class HomeScreen extends React.Component {
           style={styles.dogImage}
         />
         <View style={styles.favoriteButton}>
-          <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} size={64} color='gold' />
+          <Icon
+            color='gold'
+            name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'}
+            size={64}
+            type='ionicon'
+          />
         </View>
         <View style={styles.buttonContainer}>
           <Button
             onPress={() => this.fetchDog()}
+            raised
+            buttonStyle={styles.button}
             title="Fetch new dog"
+            loading={this.state.isLoading ? true : false}
           />
         </View>
       </View>
@@ -61,7 +61,20 @@ export default class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    height: 50,
+    width: 200,
+  },
   buttonContainer: {
+    alignItems: 'flex-end',
+    bottom: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    left: 0,
+    padding: 20,
+    position: 'absolute',
+    right: 0,
+    top: 0,
   },
   container: {
     flex: 1,
