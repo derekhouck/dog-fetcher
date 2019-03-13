@@ -1,16 +1,35 @@
 import React from 'react';
 import {
+  AsyncStorage,
   FlatList,
   Image,
   StyleSheet,
+  Text,
   TouchableHighlight,
   View,
 } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 
 export default class FavoritesScreen extends React.Component {
   static navigationOptions = {
     title: 'Favorites',
   };
+
+  state = { dog: 'test' };
+
+  componentDidMount() {
+    this.getDog().then(() => console.log(this.state.dog));
+  }
+
+  async getDog() {
+    let dog = '';
+    try {
+      dog = await AsyncStorage.getItem('dog') || null;
+    } catch (err) {
+      console.error(err);
+    }
+    this.setState({ dog: dog });
+  }
 
   render() {
     const dogs = [
@@ -27,9 +46,12 @@ export default class FavoritesScreen extends React.Component {
         image: require('../assets/images/dog3.jpg'),
       },
     ];
-    const dog = require('../assets/images/sample-dog.jpg');
     return (
       <View style={styles.container}>
+        <NavigationEvents
+          onDidFocus={() => this.getDog()}
+        />
+        {this.state.dog ? <Text>{this.state.dog}</Text> : <Text>No dog in storage</Text>}
         <FlatList
           data={dogs}
           renderItem={({ item }) => (

@@ -1,8 +1,10 @@
 import React from 'react';
 import {
+  AsyncStorage,
   Image,
   Platform,
   StyleSheet,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {
@@ -16,19 +18,43 @@ export default class HomeScreen extends React.Component {
   };
 
   state = {
+    isFav: false,
     isLoading: true
   }
 
+  componentDidMount() {
+    this.fetchDog();
+  }
+
   fetchDog() {
-    this.setState({ isLoading: true });
+    this.setState({ isFav: false, isLoading: true });
     return fetch('https://dog.ceo/api/breeds/image/random')
       .then(res => res.json())
       .then(res => this.setState({ isLoading: false, dog: res.message }))
       .catch(err => console.error(err));
   }
 
-  componentDidMount() {
-    this.fetchDog();
+  async saveDog(dog) {
+    try {
+      await AsyncStorage.setItem('dog', this.state.dog);
+      this.setState({ isFav: true });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async removeDog() {
+    try {
+      await AsyncStorage.removeItem('dog');
+      this.setState({ isFav: false })
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  styleStar() {
+    const prefix = Platform.OS === 'ios' ? 'ios' : 'md';
+    return this.state.isFav ? `${prefix}-star` : `${prefix}-star-outline`;
   }
 
   render() {
@@ -39,14 +65,18 @@ export default class HomeScreen extends React.Component {
           style={styles.dogImage}
         />
         <View style={styles.favoriteButton}>
-          <Icon
-            color='gold'
-            name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'}
-            size={64}
-            type='ionicon'
-          />
         </View>
         <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => this.state.isFav ? this.removeDog() : this.saveDog()}
+          >
+            <Icon
+              color='gold'
+              name={this.styleStar()}
+              size={64}
+              type='ionicon'
+            />
+          </TouchableOpacity>
           <Button
             onPress={() => this.fetchDog()}
             raised
@@ -87,9 +117,9 @@ const styles = StyleSheet.create({
     width: undefined,
   },
   favoriteButton: {
-    position: 'absolute',
-    right: 20,
-    top: 40,
+    // position: 'absolute',
+    // right: 20,
+    // top: 40,
   },
   loading: {
     alignItems: 'center',
