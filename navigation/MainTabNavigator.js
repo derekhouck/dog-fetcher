@@ -4,8 +4,9 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import FavoritesScreen from '../screens/FavoritesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import SingleFavoriteScreen from '../screens/SingleFavoriteScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -22,11 +23,12 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const FavoritesStack = createStackNavigator({
+  Favorites: FavoritesScreen,
+  SingleFavorite: SingleFavoriteScreen,
 });
 
-LinksStack.navigationOptions = {
+FavoritesStack.navigationOptions = {
   tabBarLabel: 'Favorites',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -52,6 +54,6 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
+  FavoritesStack,
   SettingsStack,
 });
