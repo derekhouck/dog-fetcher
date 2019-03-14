@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   AsyncStorage,
   Image,
@@ -11,8 +12,9 @@ import {
   Button,
   Icon,
 } from 'react-native-elements';
+import { addFav, removeFav } from '../actions/favorites';
 
-export default class HomeScreen extends React.Component {
+export class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Dog Fetcher',
   };
@@ -37,15 +39,18 @@ export default class HomeScreen extends React.Component {
   async saveDog(dog) {
     try {
       await AsyncStorage.setItem('dog', this.state.dog);
+      console.log(dog);
+      this.props.addFav(dog);
       this.setState({ isFav: true });
     } catch (err) {
       console.error(err);
     }
   }
 
-  async removeDog() {
+  async removeDog(dog) {
     try {
       await AsyncStorage.removeItem('dog');
+      this.props.removeFav(dog);
       this.setState({ isFav: false })
     } catch (err) {
       console.error(err);
@@ -67,7 +72,7 @@ export default class HomeScreen extends React.Component {
         <View style={styles.buttonContainer}>
           <View style={styles.favoriteButton}>
             <TouchableOpacity
-              onPress={() => this.state.isFav ? this.removeDog() : this.saveDog()}
+              onPress={() => this.state.isFav ? this.removeDog(this.state.dog) : this.saveDog(this.state.dog)}
             >
               <Icon
                 color='gold'
@@ -89,6 +94,15 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    favs: state.favs,
+  }
+};
+const mapDispatchToProps = { addFav, removeFav };
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 
 const styles = StyleSheet.create({
   button: {

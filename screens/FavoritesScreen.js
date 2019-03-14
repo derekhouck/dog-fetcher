@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   AsyncStorage,
   FlatList,
@@ -10,26 +11,12 @@ import {
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 
-export default class FavoritesScreen extends React.Component {
+export class FavoritesScreen extends React.Component {
   static navigationOptions = {
     title: 'Favorites',
   };
 
   state = { dog: 'test' };
-
-  componentDidMount() {
-    this.getDog().then(() => console.log(this.state.dog));
-  }
-
-  async getDog() {
-    let dog = '';
-    try {
-      dog = await AsyncStorage.getItem('dog') || null;
-    } catch (err) {
-      console.error(err);
-    }
-    this.setState({ dog: dog });
-  }
 
   render() {
     const dogs = [
@@ -48,10 +35,7 @@ export default class FavoritesScreen extends React.Component {
     ];
     return (
       <View style={styles.container}>
-        <NavigationEvents
-          onDidFocus={() => this.getDog()}
-        />
-        {this.state.dog ? <Text>{this.state.dog}</Text> : <Text>No dog in storage</Text>}
+        {Array.isArray(this.props.favs) ? <Text>{this.props.favs.length}</Text> : <Text>No dog in favs store</Text>}
         <FlatList
           data={dogs}
           renderItem={({ item }) => (
@@ -66,6 +50,14 @@ export default class FavoritesScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    favs: state.favs,
+  }
+};
+
+export default connect(mapStateToProps)(FavoritesScreen);
 
 const styles = StyleSheet.create({
   container: {
