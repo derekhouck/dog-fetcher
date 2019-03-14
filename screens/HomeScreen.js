@@ -11,7 +11,7 @@ import {
   Button,
   Icon,
 } from 'react-native-elements';
-import { addFav, removeFav, saveFavs } from '../actions/favorites';
+import { addFav, loadFavs, removeFav, saveFavs } from '../actions/favorites';
 
 export class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -24,7 +24,8 @@ export class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchDog();
+    return this.props.loadFavs()
+      .then(this.fetchDog());
   }
 
   fetchDog() {
@@ -90,7 +91,7 @@ const mapStateToProps = state => {
     favs: state.favs,
   }
 };
-const mapDispatchToProps = { addFav, removeFav, saveFavs };
+const mapDispatchToProps = { addFav, loadFavs, removeFav, saveFavs };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 

@@ -43,11 +43,11 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'About',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'ios-information-circle' : 'md-information-circle'}
     />
   ),
 };
