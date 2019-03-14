@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  AsyncStorage,
   FlatList,
   Image,
   StyleSheet,
@@ -9,45 +8,36 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import { NavigationEvents } from 'react-navigation';
 
 export class FavoritesScreen extends React.Component {
   static navigationOptions = {
     title: 'Favorites',
   };
 
-  state = { dog: 'test' };
-
   render() {
-    const dogs = [
-      {
-        key: 'Dog 1',
-        image: require('../assets/images/dog1.jpg'),
-      },
-      {
-        key: 'Dog 2',
-        image: require('../assets/images/dog2.jpg'),
-      },
-      {
-        key: 'Dog 3',
-        image: require('../assets/images/dog3.jpg'),
-      },
-    ];
-    return (
-      <View style={styles.container}>
-        {Array.isArray(this.props.favs) ? <Text>{this.props.favs.length}</Text> : <Text>No dog in favs store</Text>}
-        <FlatList
-          data={dogs}
-          renderItem={({ item }) => (
-            <TouchableHighlight
-              onPress={() => this.props.navigation.navigate('SingleFavorite', { dog: item.image })}
-            >
-              <Image source={item.image} style={styles.image} />
-            </TouchableHighlight>
-          )}
-        />
-      </View>
-    );
+    const favs = this.props.favs.map((fav, i) => ({ key: `${i}`, image: fav }));
+    if (this.props.favs.length === 0) {
+      return (
+        <View style={styles.emptyContainer}>
+          <Text>You don't have any favorite dogs saved yet.</Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <FlatList
+            data={favs}
+            renderItem={({ item }) => (
+              <TouchableHighlight
+                onPress={() => this.props.navigation.navigate('SingleFavorite', { dog: item.image })}
+              >
+                <Image source={{ uri: item.image }} style={styles.image} />
+              </TouchableHighlight>
+            )}
+          />
+        </View>
+      );
+    }
   }
 }
 
@@ -62,8 +52,12 @@ export default connect(mapStateToProps)(FavoritesScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
     backgroundColor: '#fff',
+  },
+  emptyContainer: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
   },
   image: {
     height: 80,
