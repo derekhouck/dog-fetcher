@@ -8,11 +8,16 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+import { loadFavs } from '../actions/favorites';
 
 export class FavoritesScreen extends React.Component {
   static navigationOptions = {
     title: 'Favorites',
   };
+
+  componentDidMount() {
+    return this.props.loadFavs();
+  }
 
   render() {
     const favs = this.props.favs.map((fav, i) => ({ key: `${i}`, image: fav }));
@@ -43,11 +48,12 @@ export class FavoritesScreen extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    favs: state.favs,
+    favs: state.favs || [],
   }
 };
+const mapDispatchToProps = { loadFavs };
 
-export default connect(mapStateToProps)(FavoritesScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritesScreen);
 
 const styles = StyleSheet.create({
   container: {

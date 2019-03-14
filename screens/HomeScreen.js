@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  AsyncStorage,
   Image,
   Platform,
   StyleSheet,
@@ -12,7 +11,7 @@ import {
   Button,
   Icon,
 } from 'react-native-elements';
-import { addFav, removeFav } from '../actions/favorites';
+import { addFav, removeFav, saveFavs } from '../actions/favorites';
 
 export class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -37,24 +36,15 @@ export class HomeScreen extends React.Component {
   }
 
   async saveDog(dog) {
-    try {
-      await AsyncStorage.setItem('dog', this.state.dog);
-      console.log(dog);
-      this.props.addFav(dog);
-      this.setState({ isFav: true });
-    } catch (err) {
-      console.error(err);
-    }
+    this.props.addFav(dog);
+    this.setState({ isFav: true });
+    return this.props.saveFavs();
   }
 
   async removeDog(dog) {
-    try {
-      await AsyncStorage.removeItem('dog');
-      this.props.removeFav(dog);
-      this.setState({ isFav: false })
-    } catch (err) {
-      console.error(err);
-    }
+    this.props.removeFav(dog);
+    this.setState({ isFav: false })
+    return this.props.saveFavs();
   }
 
   styleStar() {
@@ -100,7 +90,7 @@ const mapStateToProps = state => {
     favs: state.favs,
   }
 };
-const mapDispatchToProps = { addFav, removeFav };
+const mapDispatchToProps = { addFav, removeFav, saveFavs };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 

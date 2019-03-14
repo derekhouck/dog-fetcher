@@ -7,6 +7,9 @@ const favsReducer = createReducer([], {
   'REMOVE_FAV': (state, action) => {
     return state.filter(dog => dog !== action.payload);
   },
+  'SET_FAVS': (state, action) => {
+    return action.payload;
+  },
 });
 
 export default favsReducer;
