@@ -8,4 +8,11 @@ _Dog Fetcher_ brings random cute dogs to your device at the push of a button! Sa
 - New random dog appears whenever the "Fetch new dog" button is pressed
 - Pressing the star button saves the dog as a favorite
 - Favorites tab displays all of the user's favorite dogs
-- Pressing an individual favorite dog opens a larger view of that dog and present the user with the option to remove that favorite
+- View individual favorites and remove dogs from the favorites list
+
+## Tech Stack
+
+- [React Native](https://facebook.github.io/react-native/)
+- [Expo](https://expo.io/)
+- [React Navigation](https://reactnavigation.org/)
+- [Redux](https://redux.js.org/)
