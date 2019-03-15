@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
+  Dimensions,
   FlatList,
   Image,
   StyleSheet,
@@ -15,9 +16,31 @@ export class FavoritesScreen extends React.Component {
     title: 'Favorites',
   };
 
+  state = {
+    windowWidth: 0,
+  };
+
   componentDidMount() {
+    this._getDeviceWidth();
     return this.props.loadFavs();
   }
+
+  _getDeviceWidth = () => {
+    const windowWidth = Dimensions.get('window').width;
+    this.setState({ windowWidth: windowWidth });
+  };
+
+  _renderThumbnail = ({ item }) => (
+    <TouchableHighlight
+      onPress={() => this.props.navigation.navigate('SingleFavorite', { dog: item.image })}
+    >
+      <Image source={{ uri: item.image }} style={{
+        width: this.state.windowWidth / 3,
+        height: this.state.windowWidth / 3,
+        resizeMode: 'cover',
+      }} />
+    </TouchableHighlight>
+  );
 
   render() {
     const favs = this.props.favs.map((fav, i) => ({ key: `${i}`, image: fav }));
@@ -29,16 +52,14 @@ export class FavoritesScreen extends React.Component {
       );
     } else {
       return (
-        <View style={styles.container}>
+        <View
+          onLayout={() => this._getDeviceWidth()}
+          style={styles.container}
+        >
           <FlatList
             data={favs}
-            renderItem={({ item }) => (
-              <TouchableHighlight
-                onPress={() => this.props.navigation.navigate('SingleFavorite', { dog: item.image })}
-              >
-                <Image source={{ uri: item.image }} style={styles.image} />
-              </TouchableHighlight>
-            )}
+            numColumns={3}
+            renderItem={this._renderThumbnail}
           />
         </View>
       );
@@ -55,6 +76,8 @@ const mapDispatchToProps = { loadFavs };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesScreen);
 
+const IMAGES_PER_ROW = 3;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -65,9 +88,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  image: {
-    height: 80,
-    resizeMode: 'cover',
-    width: 100,
+  imageList: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
 });
