@@ -16,3 +16,18 @@ _Dog Fetcher_ brings random cute dogs to your device at the push of a button! Sa
 - [Expo](https://expo.io/)
 - [React Navigation](https://reactnavigation.org/)
 - [Redux](https://redux.js.org/)
+
+## History
+
+This app was originally created as a project for [Thinkful's Engineering Immersion program](https://www.thinkful.com/bootcamp/web-development/full-time/).
+
+## Screenshots
+
+Homescreen
+![The home screen on an iPhone XR](./assets/images/homescreen.jpg)
+
+Favorites
+![The favorites screen on an iPhone XR](./assets/images/favorites-screen.jpg)
+
+Single Favorite
+![A single favorite on an iPhone XR](./assets/images/single-favorite-screen.jpg)
