@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": null,
-  "packagerPid": null,
+  "packagerPort": 19001,
+  "packagerPid": 3092,
   "expoServerNgrokUrl": "https://xf-axp.derekhouck.dog-fetcher.exp.direct",
   "packagerNgrokUrl": "https://packager.xf-axp.derekhouck.dog-fetcher.exp.direct",
-  "ngrokPid": 1026,
+  "ngrokPid": 3108,
   "webpackServerPort": null
 }
