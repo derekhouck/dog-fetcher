@@ -24,10 +24,21 @@ This app was originally created as a project for [Thinkful's Engineering Immersi
 ## Screenshots
 
 Homescreen
+
 ![The home screen on an iPhone XR](./assets/images/homescreen.jpg)
 
 Favorites
+
 ![The favorites screen on an iPhone XR](./assets/images/favorites-screen.jpg)
 
 Single Favorite
+
 ![A single favorite on an iPhone XR](./assets/images/single-favorite-screen.jpg)
+
+iPad (landscape orientation)
+
+![A single favorite in landscape orientation on an iPad](./assets/images/dog-fetcher-ipad.jpg)
+
+Android
+
+![The home screen on a Google Pixel](./assets/images/dog-fetcher-pixel.jpg)
