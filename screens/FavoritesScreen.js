@@ -43,7 +43,6 @@ export class FavoritesScreen extends React.Component {
   );
 
   render() {
-    const favs = this.props.favs.map((fav, i) => ({ key: `${i}`, image: fav }));
     if (this.props.favs.length === 0) {
       return (
         <View style={styles.emptyContainer}>
@@ -51,6 +50,7 @@ export class FavoritesScreen extends React.Component {
         </View>
       );
     } else {
+      const favs = this.props.favs.map((fav, i) => ({ key: `${i}`, image: fav }));
       return (
         <View
           onLayout={() => this._getDeviceWidth()}

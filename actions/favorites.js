@@ -9,7 +9,7 @@ const setFavs = createAction('SET_FAVS');
 
 const loadFavs = () => async (dispatch) => {
   try {
-    const favs = await AsyncStorage.getItem('favs');
+    let favs = await AsyncStorage.getItem('favs');
     favs === null ? favs = "[]" : favs;
     return dispatch(setFavs(JSON.parse(favs)));
   } catch (err) {
