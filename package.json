@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
-    "expo": "^46.0.14",
+    "expo": "^49.0.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-elements": "^1.1.0",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",
-    "jest-expo": "^46.0.1"
+    "jest-expo": "^49.0.0"
   },
   "private": true
 }
